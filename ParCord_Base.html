@@ -1,0 +1,39 @@
+
+<!doctype html>
+<head>
+    <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+    <meta content="utf-8" http-equiv="encoding">
+
+    <title>Basic Parallel Coordinates Example</title>
+    <link rel="stylesheet" type="text/css" href="d3.parcoords.css">
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <script src="d3.js"></script>
+    <script src="d3.parcoords.js"></script>
+
+</head>
+
+<body>
+<div id="example" class="parcoords" style="width:1000px;height:1000px"></div>
+
+<script>
+  d3.csv('diversityranking.csv', function(data) {
+  
+  var colors = d3.scale.category20();
+
+  var parcoords = d3.parcoords()("#example")
+ // .data(data)
+  //.render()
+  //.createAxes()
+    .data(data)
+    .hideAxis(["name"])
+    .color(colors)
+    .alpha(0.25)
+    .composite("darken")
+    .margin({ top: 24, left: 150, bottom: -12, right: 0 })
+    .mode("queue")
+    .render()
+    .brushMode("1D-axes");  // enable brushing
+});
+</script>
+  
+</body>
