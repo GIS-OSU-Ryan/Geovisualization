@@ -1,0 +1,47 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+    <title>GeoVis Bois</title>
+
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.2.0/dist/leaflet.css" />
+    <link rel="stylesheet" href="interactiveMap.css" />
+
+    <script src="https://unpkg.com/leaflet@1.2.0/dist/leaflet.js"></script>
+    <script src="ohiocounties.js"></script>
+    <script src="ohiocounties1980.js"></script> <!-- type="text/javascript"-->
+    <script src="http://d3js.org/d3.v4.min.js"></script>
+    <script src="https://d3plus.org/js/d3.js"></script>
+    <script src="https://d3plus.org/js/d3plus.js"></script>
+
+</head>
+
+<div id="map"></div>
+<div id="viz"></div>
+
+
+<body>
+
+
+<script>
+    var sample_data = [
+        { "value": 696126, "name": "White" },
+        { "value": 164564, "name": "Black" },
+        { "value": 1024, "name": "American Indian and Alaska Native" },
+        { "value": 5200, "name": "Asian and Pacific Islander" },
+        { "value": 5717, "name": "Hispanic" }
+    ]
+    // instantiate d3plus
+    var visualization = d3plus.viz()
+        .container("#viz")  // container DIV to hold the visualization
+        .data(sample_data)  // data to use with the visualization
+        .type("tree_map")   // visualization type
+        .id("name")         // key for which our data is unique on
+        .size("value")      // sizing of blocks
+        .draw()             // finally, draw the visualization!
+</script>
+
+</html>
