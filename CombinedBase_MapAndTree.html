@@ -1,0 +1,71 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+    <title>GeoVis Bois</title>
+
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+    <meta content="utf-8" http-equiv="encoding"
+
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.2.0/dist/leaflet.css" />
+    <link rel="stylesheet" href="interactiveMap.css" />
+    <link rel="stylesheet" type="text/css" href="d3.parcoords.css">
+    <link rel="stylesheet" type="text/css" href="style.css">
+
+    <script src="https://unpkg.com/leaflet@1.2.0/dist/leaflet.js"></script>
+    <script src="ohiocounties.js"></script>
+    <script src="ohiocounties1980.js"></script> <!-- type="text/javascript"-->
+    <script src="d3.js"></script>
+    <script src="d3.parcoords.js"></script>
+    <script src="http://d3js.org/d3.v4.min.js"></script>
+    <script src="https://d3plus.org/js/d3.js"></script>
+    <script src="https://d3plus.org/js/d3plus.js"></script>
+
+</head>
+
+<div id="map"></div>
+<div id="viz"></div>
+
+
+<body>
+<div id="example" class="parcoords" style="width:1000px;height:1000px"></div>
+
+<script>
+    var sample_data = [
+        { "value": 696126, "name": "White" },
+        { "value": 164564, "name": "Black" },
+        { "value": 1024, "name": "American Indian and Alaska Native" },
+        { "value": 5200, "name": "Asian and Pacific Islander" },
+        { "value": 5717, "name": "Hispanic" }
+    ]
+    // instantiate d3plus
+    var visualization = d3plus.viz()
+        .container("#viz")  // container DIV to hold the visualization
+        .data(sample_data)  // data to use with the visualization
+        .type("tree_map")   // visualization type
+        .id("name")         // key for which our data is unique on
+        .size("value")      // sizing of blocks
+        .draw()             // finally, draw the visualization!
+
+    d3.csv('diversityranking.csv', function (data) {
+
+        var colors = d3.scale.category20();
+        var parcoords = d3.parcoords()("#example")
+            // .data(data)
+            //.render()
+            //.createAxes()
+            .data(data)
+            .hideAxis(["name"])
+            .color(colors)
+            .alpha(0.25)
+            .composite("darken")
+            .margin({ top: 24, left: 150, bottom: -12, right: 0 })
+            .mode("queue")
+            .render()
+            .brushMode("1D-axes");  // enable brushing
+    });
+</script>
+
+</html>
